@@ -45,6 +45,13 @@ public sealed class ApiExceptionHandler(
             Detail = detail,
         };
         problem.Extensions["code"] = code;
+        if (exception is ApiException { Extra: { } extra })
+        {
+            foreach (var (key, value) in extra)
+            {
+                problem.Extensions[key] = value;
+            }
+        }
 
         return await problemDetailsService.TryWriteAsync(new ProblemDetailsContext
         {

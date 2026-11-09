@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
+using SchoolAdmission.Api.Common;
 using SchoolAdmission.Api.Common.Errors;
 using SchoolAdmission.Api.Data;
 using SchoolAdmission.Api.Domain;
@@ -24,7 +25,7 @@ public sealed class ClassService(AppDbContext db, TimeProvider time)
             Name = name,
             NormalizedName = normalizedName,
             TotalSeats = request.TotalSeats!.Value,
-            CreatedAt = time.GetUtcNow(),
+            CreatedAt = time.GetUtcNowMs(),
         };
 
         db.Classes.Add(schoolClass);

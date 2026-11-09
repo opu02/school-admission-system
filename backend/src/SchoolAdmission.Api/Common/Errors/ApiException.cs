@@ -20,6 +20,9 @@ public sealed class ApiException : Exception
 
     public string Title { get; }
 
+    /// <summary>Optional extra fields added to the problem response (e.g. the id of an existing hold).</summary>
+    public IReadOnlyDictionary<string, object?>? Extra { get; init; }
+
     public static ApiException BadRequest(string code, string message) =>
         new(StatusCodes.Status400BadRequest, code, "Invalid request", message);
 
