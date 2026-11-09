@@ -1,0 +1,44 @@
+# ---------- OS / editors ----------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+
+# ---------- Environment ----------
+.env
+.env.local
+.env.*.local
+
+# ---------- .NET ----------
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+TestResults/
+*.trx
+coverage*.xml
+coverage*.json
+*.nupkg
+project.lock.json
+artifacts/
+
+# ---------- Node / frontend ----------
+node_modules/
+dist/
+dist-ssr/
+coverage/
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---------- Assignment brief (confidential, never commit) ----------
+*.pdf
