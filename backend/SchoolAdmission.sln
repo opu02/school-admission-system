@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7A3C1E52-1B7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolAdmission.Api", "src\SchoolAdmission.Api\SchoolAdmission.Api.csproj", "{4F7E2B8C-3D5A-4C1E-8B9F-6A2D0E1C3B11}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B1C2D3E4-F5A6-4B7C-8D9E-0F1A2B3C4D02}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolAdmission.Api.Tests", "tests\SchoolAdmission.Api.Tests\SchoolAdmission.Api.Tests.csproj", "{5E8F3C9D-4E6B-4D2F-9CA0-7B3E1F2D4C22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,11 +21,16 @@ Global
 		{4F7E2B8C-3D5A-4C1E-8B9F-6A2D0E1C3B11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F7E2B8C-3D5A-4C1E-8B9F-6A2D0E1C3B11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F7E2B8C-3D5A-4C1E-8B9F-6A2D0E1C3B11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E8F3C9D-4E6B-4D2F-9CA0-7B3E1F2D4C22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E8F3C9D-4E6B-4D2F-9CA0-7B3E1F2D4C22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E8F3C9D-4E6B-4D2F-9CA0-7B3E1F2D4C22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E8F3C9D-4E6B-4D2F-9CA0-7B3E1F2D4C22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4F7E2B8C-3D5A-4C1E-8B9F-6A2D0E1C3B11} = {7A3C1E52-1B7E-4E5C-9C61-2F2B1D2C9A01}
+		{5E8F3C9D-4E6B-4D2F-9CA0-7B3E1F2D4C22} = {B1C2D3E4-F5A6-4B7C-8D9E-0F1A2B3C4D02}
 	EndGlobalSection
 EndGlobal
