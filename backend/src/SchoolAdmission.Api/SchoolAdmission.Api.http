@@ -1,5 +1,10 @@
 # Quick manual API checks. In Visual Studio / VS Code (REST Client), click "Send Request".
 @baseUrl = http://localhost:8080
+# Paste real ids here: classId from "List classes", holdId from "Apply for a seat".
+@classId = c_replace_me
+@student = 20152691234567890
+@otherStudent = 20159999999999999
+@holdId = h_replace_me
 
 ### Health
 GET {{baseUrl}}/health
@@ -31,8 +36,52 @@ Content-Type: application/json
 ### List classes with seat counts -> 200
 GET {{baseUrl}}/classes
 
-### One class (paste an id from the list) -> 200
-GET {{baseUrl}}/classes/c_replace_me
+### One class -> 200
+GET {{baseUrl}}/classes/{{classId}}
 
 ### Unknown class -> 404 CLASS_NOT_FOUND
 GET {{baseUrl}}/classes/c_does_not_exist
+
+# ======================= Holds (applications) =======================
+
+### Apply for a seat -> 201 HELD (copy "holdId" into @holdId at the top)
+POST {{baseUrl}}/classes/{{classId}}/holds
+X-Student-Id: {{student}}
+
+### Apply again, same student + class -> 409 ACTIVE_HOLD_EXISTS
+POST {{baseUrl}}/classes/{{classId}}/holds
+X-Student-Id: {{student}}
+
+### Missing header -> 400 STUDENT_ID_REQUIRED
+POST {{baseUrl}}/classes/{{classId}}/holds
+
+### Wrong format -> 400 STUDENT_ID_INVALID
+POST {{baseUrl}}/classes/{{classId}}/holds
+X-Student-Id: 12345
+
+### Hold status -> 200
+GET {{baseUrl}}/holds/{{holdId}}
+
+### My applications -> 200 (array, newest first)
+GET {{baseUrl}}/me/holds
+X-Student-Id: {{student}}
+
+### Another student tries to pay -> 403 HOLD_NOT_OWNED
+POST {{baseUrl}}/holds/{{holdId}}/confirm
+X-Student-Id: {{otherStudent}}
+
+### Pay fee -> 200 CONFIRMED
+POST {{baseUrl}}/holds/{{holdId}}/confirm
+X-Student-Id: {{student}}
+
+### Pay again -> 200 CONFIRMED (idempotent, confirmedSeats does not change)
+POST {{baseUrl}}/holds/{{holdId}}/confirm
+X-Student-Id: {{student}}
+
+### Cancel a confirmed admission -> 409 HOLD_ALREADY_CONFIRMED
+DELETE {{baseUrl}}/holds/{{holdId}}
+X-Student-Id: {{student}}
+
+### Cancel (use a HELD hold id) -> 204
+DELETE {{baseUrl}}/holds/{{holdId}}
+X-Student-Id: {{student}}
