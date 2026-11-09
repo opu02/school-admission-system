@@ -1,0 +1,38 @@
+# Quick manual API checks. In Visual Studio / VS Code (REST Client), click "Send Request".
+@baseUrl = http://localhost:8080
+
+### Health
+GET {{baseUrl}}/health
+
+### Create a class -> 201
+POST {{baseUrl}}/classes
+Content-Type: application/json
+
+{ "name": "Class 6 - Morning Shift", "totalSeats": 120 }
+
+### Same name again (case/space-insensitive) -> 409 CLASS_NAME_TAKEN
+POST {{baseUrl}}/classes
+Content-Type: application/json
+
+{ "name": "  class 6 -  morning shift ", "totalSeats": 50 }
+
+### Invalid body -> 400 VALIDATION_FAILED
+POST {{baseUrl}}/classes
+Content-Type: application/json
+
+{ "name": "", "totalSeats": 0 }
+
+### Wrong type -> 400 VALIDATION_FAILED
+POST {{baseUrl}}/classes
+Content-Type: application/json
+
+{ "name": "Class 7 - Day Shift", "totalSeats": "many" }
+
+### List classes with seat counts -> 200
+GET {{baseUrl}}/classes
+
+### One class (paste an id from the list) -> 200
+GET {{baseUrl}}/classes/c_replace_me
+
+### Unknown class -> 404 CLASS_NOT_FOUND
+GET {{baseUrl}}/classes/c_does_not_exist

@@ -1,0 +1,12 @@
+# Local development helper — NOT needed to run the app.
+#
+# Starts only PostgreSQL and publishes it on localhost:5433, so the backend can be
+# run from Visual Studio / `dotnet run` (Development profile) against it:
+#
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d db
+#
+# Port 5433 is used so it does not clash with a locally installed PostgreSQL (5432).
+services:
+  db:
+    ports:
+      - "${POSTGRES_DEV_PORT:-5433}:5432"
