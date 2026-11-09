@@ -33,6 +33,7 @@ artifacts/
 node_modules/
 dist/
 dist-ssr/
+*.tsbuildinfo
 coverage/
 *.local
 npm-debug.log*
