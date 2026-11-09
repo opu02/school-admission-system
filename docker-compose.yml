@@ -32,6 +32,24 @@ services:
       db:
         condition: service_healthy
 
+  # Bonus check: a second backend process on port 8081, same database.
+  # Start it with:  docker compose --profile multi up --build
+  backend-2:
+    profiles: ["multi"]
+    build:
+      context: ./backend
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__Default: Host=db;Port=5432;Database=${POSTGRES_DB:-school_admission};Username=${POSTGRES_USER:-admission};Password=${POSTGRES_PASSWORD:-admission}
+      HOLD_DURATION_SECONDS: ${HOLD_DURATION_SECONDS:-600}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,http://localhost:5173}
+    ports:
+      - "8081:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
   frontend:
     build:
       context: ./frontend
