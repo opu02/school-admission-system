@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using SchoolAdmission.Api.Common;
 using SchoolAdmission.Api.Common.Errors;
 using SchoolAdmission.Api.Configuration;
 using SchoolAdmission.Api.Data;
 using SchoolAdmission.Api.Features.Classes;
+using SchoolAdmission.Api.Features.Holds;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,9 +32,13 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connect
 builder.Services.AddSingleton(TimeProvider.System);
 
 builder.Services.AddScoped<ClassService>();
+builder.Services.AddScoped<HoldService>();
+builder.Services.AddHostedService<HoldExpiryWorker>();
 
 builder.Services
     .AddControllers()
+    .AddJsonOptions(options =>
+        options.JsonSerializerOptions.Converters.Add(new UtcDateTimeOffsetJsonConverter()))
     .ConfigureApiBehaviorOptions(options =>
         options.InvalidModelStateResponseFactory = ValidationProblemFactory.Create);
 
